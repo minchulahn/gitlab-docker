@@ -13,8 +13,8 @@ RUN apt-get update -q \
       nano
 
 # Download & Install GitLab
-RUN curl -LJO https://packages.gitlab.com/gitlab/gitlab-ce/packages/ubuntu/trusty/gitlab-ce_8.15.3-ce.0_amd64.deb/download
-RUN dpkg -i gitlab-ce_8.15.3-ce.0_amd64.deb
+RUN curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
+RUN sudo apt-get install gitlab-ce
 
 ADD start.sh /opt/gitlab/start.sh
 RUN chmod 777 /opt/gitlab/start.sh
@@ -23,7 +23,7 @@ RUN chmod 777 /opt/gitlab/start.sh
 VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
 
 # Expose web & ssh
-EXPOSE 443 80 22
+EXPOSE 80
 
 # Setup the Docker container environment and run Gitlab
 WORKDIR /opt/gitlab
