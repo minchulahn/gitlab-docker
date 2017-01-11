@@ -25,4 +25,6 @@ VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
 # Expose web & ssh
 EXPOSE 80
 
-CMD gitlab-ctl reconfigure
+# Setup the Docker container environment and run Gitlab
+WORKDIR /opt/gitlab
+CMD ["/opt/gitlab/start.sh"]
