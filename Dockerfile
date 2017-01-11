@@ -15,6 +15,8 @@ RUN apt-get update -q \
 # Download & Install GitLab
 RUN curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
 RUN sudo apt-get install gitlab-ce
+RUN cd /etc/gitlab/ && \
+    sed -i 's/example.com/localhost\/gitblit/g' gitlab.rb
 
 ADD start.sh /opt/gitlab/start.sh
 RUN chmod 777 /opt/gitlab/start.sh
