@@ -1,3 +1,3 @@
 #!/bin/bash
 
-gitlab-ctl start
+gitlab-ctl reconfigure
