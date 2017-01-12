@@ -9,7 +9,8 @@ RUN apt-get update -q \
       openssh-server \
       wget \
       apt-transport-https \
-      vim
+      vim \
+      nano
 
 # Download & Install GitLab
 RUN curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
@@ -18,6 +19,7 @@ RUN cd /etc/gitlab/ && \
     sed -i '/^external_url/s|external_url |#external_url |g' gitlab.rb && \
     sed -i '$a host = `hostname`.strip\nexternal_url "http://#{host}/gitlab"' gitlab.rb
 RUN cp /etc/gitlab/gitlab.rb /var/opt/gitlab/gitlab.rb
+RUN gitlab-ctl reconfigure
 
 ADD start.sh /var/opt/gitlab/start.sh
 RUN chmod 777 /var/opt/gitlab/start.sh
