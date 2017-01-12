@@ -9,24 +9,27 @@ RUN apt-get update -q \
       openssh-server \
       wget \
       apt-transport-https \
-      vim \
-      nano
+      vim
 
 # Download & Install GitLab
 RUN curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.deb.sh | sudo bash
 RUN sudo apt-get install gitlab-ce
 RUN cd /etc/gitlab/ && \
-    sed -i 's/example.com/localhost\/gitblit/g' gitlab.rb
+    sed -i '/^external_url/s|external_url |#external_url |g' gitlab.rb && \
+    sed -i '$a host = `hostname`.strip\nexternal_url "http://#{host}/gitlab"' gitlab.rb
+    
+RUN cp /etc/gitlab/gitlab.rb /var/opt/gitlab/gitlab.rb
+RUN gitlab-ctl reconfigure
 
-ADD start.sh /opt/gitlab/start.sh
-RUN chmod 777 /opt/gitlab/start.sh
+#ADD start.sh /opt/gitlab/start.sh
+#RUN chmod 777 /opt/gitlab/start.sh
 
 # Define data volumes
 VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
 
 # Expose web & ssh
-EXPOSE 80
+EXPOSE 443 80 22
 
 # Setup the Docker container environment and run Gitlab
-WORKDIR /opt/gitlab
-CMD ["/opt/gitlab/start.sh"]
+#WORKDIR /opt/gitlab
+#CMD ["/opt/gitlab/start.sh"]
