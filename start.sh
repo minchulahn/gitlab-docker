@@ -1,4 +1,4 @@
 #!/bin/bash
 
-#gitlab-ctl reconfigure
-gitlab-ctl start
+gitlab-ctl reconfigure
+cp /etc/gitlab/gitlab.rb /var/opt/gitlab/gitlab.rb
