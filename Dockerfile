@@ -18,11 +18,11 @@ RUN apt-get install gitlab-ce
 RUN cd /etc/gitlab/ && \
     sed -i '/^external_url/s|external_url |#external_url |g' gitlab.rb && \
     sed -i '$a host = `hostname`.strip\nexternal_url "http://#{host}/gitlab"' gitlab.rb
-#RUN gitlab-ctl reconfigure
-#RUN cp /etc/gitlab/gitlab.rb /var/opt/gitlab/gitlab.rb
+RUN gitlab-ctl reconfigure
 
 ADD start.sh /var/opt/gitlab/start.sh
 RUN chmod 777 /var/opt/gitlab/start.sh
+RUN cp /etc/gitlab/gitlab.rb /var/opt/gitlab/gitlab.rb
 
 # Define data volumes
 VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
