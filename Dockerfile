@@ -21,7 +21,8 @@ RUN cd /etc/gitlab/ && \
 
 RUN mkdir -p /var/opt/gitlab
 RUN cp /etc/gitlab/gitlab.rb /var/opt/gitlab/gitlab.rb
-#RUN gitlab-ctl reconfigure
+RUN /opt/gitlab/embedded/bin/runsvdir-start
+RUN gitlab-ctl reconfigure
 
 ADD start.sh /var/opt/gitlab/start.sh
 RUN chmod 777 /var/opt/gitlab/start.sh
@@ -33,5 +34,5 @@ VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
 EXPOSE 443 80 22
 
 # Setup the Docker container environment and run Gitlab
-WORKDIR /var/opt/gitlab
-CMD ["/var/opt/gitlab/start.sh"]
+#WORKDIR /var/opt/gitlab
+#CMD ["/var/opt/gitlab/start.sh"]
