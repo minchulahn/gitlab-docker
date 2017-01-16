@@ -21,7 +21,7 @@ RUN cd /etc/gitlab/ && \
 
 RUN mkdir -p /var/opt/gitlab
 RUN cp /etc/gitlab/gitlab.rb /var/opt/gitlab/gitlab.rb
-RUN /opt/gitlab/embedded/bin/runsvdir-start && gitlab-ctl reconfigure
+RUN /opt/gitlab/embedded/bin/runsvdir-start & gitlab-ctl reconfigure
 
 ADD start.sh /var/opt/gitlab/start.sh
 RUN chmod 777 /var/opt/gitlab/start.sh
