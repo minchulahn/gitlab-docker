@@ -34,4 +34,4 @@ EXPOSE 443 80 22
 
 # Setup the Docker container environment and run Gitlab
 #WORKDIR /var/opt/gitlab
-#CMD ["/var/opt/gitlab/start.sh"]
+CMD /opt/gitlab/embedded/bin/runsvdir-start & gitlab-ctl start
