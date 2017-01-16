@@ -19,6 +19,9 @@ RUN cd /etc/gitlab/ && \
     sed -i '/^external_url/s|external_url |#external_url |g' gitlab.rb && \
     sed -i '$a host = `hostname`.strip\nexternal_url "http://#{host}/gitlab"' gitlab.rb
 
+RUN mkdir -p /var/opt/gitlab
+RUN cp /etc/gitlab/gitlab.rb /var/opt/gitlab/gitlab.rb
+
 ADD start.sh /var/opt/gitlab/start.sh
 RUN chmod 777 /var/opt/gitlab/start.sh
 
