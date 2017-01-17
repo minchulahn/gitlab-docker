@@ -1,4 +1,3 @@
 #!/bin/bash
 
-gitlab-ctl reconfigure
-gitlab-ctl start
+/opt/gitlab/embedded/bin/runsvdir-start & gitlab-ctl start
