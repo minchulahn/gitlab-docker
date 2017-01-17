@@ -33,5 +33,5 @@ VOLUME ["/etc/gitlab", "/var/opt/gitlab", "/var/log/gitlab"]
 EXPOSE 443 80 22
 
 # Setup the Docker container environment and run Gitlab
-#WORKDIR /var/opt/gitlab
-CMD /opt/gitlab/embedded/bin/runsvdir-start & gitlab-ctl start
+WORKDIR /var/opt/gitlab
+CMD cmd ["/var/opt/gitlab/start.sh"]
