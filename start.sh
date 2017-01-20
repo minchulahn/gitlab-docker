@@ -3,8 +3,8 @@
 # Copy gitlab.rb for the first time
 if [[ ! -e /etc/gitlab/gitlab.rb ]]; then
 	echo "Installing gitlab.rb config..."
-	sed -i '/^external_url/s|external_url |#external_url |g' /opt/gitlab/etc/gitlab.rb
-	sed -i '$a external_url "http://'$DOMAIN'/gitlab"' /opt/gitlab/etc/gitlab.rb
+	sed -i '/^external_url/s|external_url |#external_url |g' /opt/gitlab/etc/gitlab.rb.template
+	sed -i '$a external_url "http://'$DOMAIN'/gitlab"' /opt/gitlab/etc/gitlab.rb.template
 
 	cp /opt/gitlab/etc/gitlab.rb.template /etc/gitlab/gitlab.rb
 	chmod 0600 /etc/gitlab/gitlab.rb
